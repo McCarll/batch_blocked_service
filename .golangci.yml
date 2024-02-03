@@ -1,0 +1,36 @@
+# .golangci.yml
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+  govet:
+    check-shadowing: true
+  golint:
+    min-confidence: 0.8
+
+linters:
+  enable:
+    - govet
+    - golint
+    - errcheck
+  disable:
+    - unused
+
+# Run all enabled linters even if we have errors from any of them (default is true)
+
+issues:
+  exclude-use-default: false
+
+#issues:
+#  exclude-use-default: false
+#  # List of regexps of issue texts to exclude, empty list by default
+#  exclude:
+#    - errcheck: almost all programs ignore errors on these functions and in most cases it's ok
+
+  # Excluding configuration per-path, per-linter, per-text and per-source
+  exclude-rules:
+    # Exclude some linters from running on tests files.
+    - path: _test\.go
+      linters:
+        - errcheck
+        - golint

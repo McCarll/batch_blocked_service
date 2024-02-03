@@ -1,0 +1,68 @@
+{
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server for your API.",
+        "title": "API Title",
+        "termsOfService": "http://example.com/terms/",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/process-batch": {
+            "post": {
+                "description": "Process a batch of items through the service",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "batch"
+                ],
+                "summary": "Process a batch of items",
+                "parameters": [
+                    {
+                        "description": "Batch to process",
+                        "name": "batch",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/api.Item"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "api.Item": {
+            "description": "An abstract data item used in various operations.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "ID is the unique identifier of the item.\n@example 12345",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Name is the name of the item.\n@example Widget",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,50 @@
+basePath: /
+definitions:
+  api.Item:
+    description: An abstract data item used in various operations.
+    properties:
+      id:
+        description: |-
+          ID is the unique identifier of the item.
+          @example 12345
+        type: integer
+      name:
+        description: |-
+          Name is the name of the item.
+          @example Widget
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample external for your API.
+  termsOfService: http://example.com/terms/
+  title: API Title
+  version: "1.0"
+paths:
+  /process-batch:
+    post:
+      consumes:
+      - application/json
+      description: Process a batch of items through the service
+      parameters:
+      - description: Batch to process
+        in: body
+        name: batch
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/api.Item'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Process a batch of items
+      tags:
+      - batch
+schemes:
+- http
+- https
+swagger: "2.0"
