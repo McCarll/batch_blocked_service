@@ -57,13 +57,6 @@ func (c *Client) processQueue() {
 	}
 }
 
-func (c *Client) startProcessingTimer() {
-	_, p := c.service.GetLimits()
-	c.processTimer = time.AfterFunc(p, func() {
-		c.processQueue()
-	})
-}
-
 func (c *Client) processBatch() {
 	c.mu.Lock()
 	defer c.mu.Unlock()
