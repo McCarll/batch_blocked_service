@@ -61,27 +61,21 @@ func (m *MockService) Process(ctx context.Context, batch Batch) error {
 
 	now := time.Now()
 
-	// Check if service is currently blocked by comparing blockUntil with the current time
 	if now.Before(m.blockUntil) {
 		return ErrBlocked
 	}
 
-	// Reset count and lastReset time if rangeTime has passed since lastReset
 	if now.Sub(m.lastReset) > m.rangeTime {
 		m.requestCount = 0
 		m.lastReset = now
 	}
 
-	// Check if limit is exceeded
 	if m.requestCount+uint64(len(batch)) > m.limit {
-		// Update blockUntil to block service for blockTime
 		m.blockUntil = now.Add(m.blockTime)
 		return ErrBlocked
 	}
 
-	// Process the batch
 	m.requestCount += uint64(len(batch))
-	// Simulate processing delay
 	time.Sleep(100 * time.Millisecond)
 	for _, item := range batch {
 		fmt.Printf("Processing Item: %s\n", item.Message)

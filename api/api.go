@@ -28,7 +28,6 @@ func NewAPI(client *client.Client) *API {
 // @Success 200
 // @Router /process-batch [post]
 func (api *API) ProcessBatchHandler(w http.ResponseWriter, r *http.Request) {
-	// For simplicity, assuming the batch is sent as a JSON array in the request body
 	var batch []service.Item
 	err := json.NewDecoder(r.Body).Decode(&batch)
 	if err != nil {
