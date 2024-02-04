@@ -28,7 +28,6 @@ import (
 // @schemes http https
 // swagger: "2.0"
 func main() {
-	// Load environment variables
 	if cwd, err := os.Getwd(); err == nil {
 		log.Println("Current Working Directory:", cwd)
 	}
@@ -37,39 +36,30 @@ func main() {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
 
-	// Use Viper to read environment variables
 	viper.AutomaticEnv()
 
-	// Set default values (optional)
 	viper.SetDefault("SERVICE_LIMIT", 5)
 	viper.SetDefault("SERVICE_PERIOD", 2)
 
-	// Get values from Viper
 	serviceLimit := viper.GetInt("SERVICE_LIMIT")
 	servicePeriod := viper.GetInt("SERVICE_PERIOD")
 
-	// Convert SERVICE_PERIOD to time.Duration
 	periodDuration := time.Duration(servicePeriod) * time.Second
 	blockDuration := time.Duration(servicePeriod) * 2 * time.Second
 
-	// Initialize MockService
 	mockService := service.NewMockService(uint64(serviceLimit), periodDuration, blockDuration)
 	clientService := client.NewClient(mockService)
 
-	// Create the API handler
 	apiHandler := api.NewAPI(clientService)
 
-	// Set up a new ServeMux and register the API routes
 	mux := http.NewServeMux()
 	apiHandler.SetupRoutes(mux)
 
-	// Create a external
 	server := &http.Server{
 		Addr:    ":8080",
 		Handler: mux,
 	}
 
-	// Start the external in a goroutine
 	go func() {
 		if err := server.ListenAndServe(); err != http.ErrServerClosed {
 			log.Fatalf("ListenAndServe(): %v", err)
@@ -84,11 +74,9 @@ func main() {
 	<-quit
 	log.Println("Shutting down external...")
 
-	// Create a deadline to wait for
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	// Shutdown the external, waiting max 30 seconds for current operations to complete
 	if err := server.Shutdown(ctx); err != nil {
 		log.Fatalf("Server forced to shutdown: %v", err)
 	}
