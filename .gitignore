@@ -1,0 +1,40 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+!*.go
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Project-local glide cache, RE: https://glide.sh
+.glide/
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# JetBrains IDEs (.idea) and VS Code (.vscode)
+.idea/
+.vscode/
+
+# macOS specific
+.DS_Store
+
+# Logs
+logs
+*.log
+
+# Node.js dependencies
+node_modules/
+
+# Golang build directory
+dist/
+
+# Golangci-lint cache
+.golangci-lint-cache/
