@@ -3,7 +3,7 @@ package external
 import (
 	"context"
 	"errors"
-	"fmt"
+	"log"
 	"sync"
 	"time"
 )
@@ -78,7 +78,7 @@ func (m *MockService) Process(ctx context.Context, batch Batch) error {
 	m.requestCount += uint64(len(batch))
 	time.Sleep(100 * time.Millisecond)
 	for _, item := range batch {
-		fmt.Printf("Processing Item: %s\n", item.Message)
+		log.Printf("Processing Item: %s\n", item.Message)
 	}
 
 	return nil

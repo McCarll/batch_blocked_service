@@ -38,3 +38,4 @@ dist/
 
 # Golangci-lint cache
 .golangci-lint-cache/
+*.iml

@@ -28,9 +28,6 @@ import (
 // @schemes http https
 // swagger: "2.0"
 func main() {
-	if cwd, err := os.Getwd(); err == nil {
-		log.Println("Current Working Directory:", cwd)
-	}
 	err := godotenv.Load("./config.env")
 	if err != nil {
 		log.Fatalf("Error loading .env file: %v", err)
